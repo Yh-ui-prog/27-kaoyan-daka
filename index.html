@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>27考研 双人打卡鼓励站</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{
+            background: #fff5e6;
+            font-family: "微软雅黑",sans-serif;
+            padding: 30px 15px;
+        }
+        .box{
+            max-width: 500px;
+            margin: 20px auto;
+            background: linear-gradient(135deg,#fff5e6,#ffe8cc);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(255,180,100,0.25);
+        }
+        h2,h3{
+            color: #c44536;
+            text-align: center;
+            margin-bottom: 15px;
+            text-shadow:
+                    0 0 5px rgba(196,69,54,0.5),
+                    0 0 10px rgba(196,69,54,0.3),
+                    0 0 15px rgba(196,69,54,0.2);
+            letter-spacing: 1px;
+        }
+        h2{
+            animation:textGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes textGlow{
+            from{
+                text-shadow:
+                        0 0 5px rgba(196,69,54,0.5),
+                        0 0 10px rgba(196,69,54,0.3),
+                        0 0 15px rgba(196,69,54,0.2);
+            }
+            to{
+                text-shadow:
+                        0 0 10px rgba(196,69,54,0.8),
+                        0 0 20px rgba(196,69,54,0.5),
+                        0 0 30px rgba(196,69,54,0.3),
+                        0 0 40px rgba(196,69,54,0.2);
+            }
+        }
+
+        .count-time{
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            color: #d46b08;
+            margin:10px 0 20px;
+            text-shadow:
+                    0 0 10px rgba(212,107,8,0.6),
+                    0 0 20px rgba(212,107,8,0.4),
+                    0 0 30px rgba(212,107,8,0.3),
+                    0 0 40px rgba(212,107,8,0.2);
+            animation:countGlow 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes countGlow{
+            from{
+                text-shadow:
+                        0 0 10px rgba(212,107,8,0.6),
+                        0 0 20px rgba(212,107,8,0.4),
+                        0 0 30px rgba(212,107,8,0.3);
+            }
+            to{
+                text-shadow:
+                        0 0 15px rgba(212,107,8,0.9),
+                        0 0 30px rgba(212,107,8,0.6),
+                        0 0 45px rgba(212,107,8,0.4),
+                        0 0 60px rgba(212,107,8,0.3);
+            }
+        }
+
+        textarea{
+            width:100%;
+            height:80px;
+            padding:12px;
+            border-radius:10px;
+            border:2px solid #ffd39b;
+            font-size:16px;
+            font-weight: bold;
+            resize:none;
+            margin:10px 0;
+            transition:all 0.3s ease;
+            background:rgba(255,255,255,0.8);
+            color: #d46b08;
+            text-shadow:
+                    0 0 5px rgba(212,107,8,0.4),
+                    0 0 10px rgba(212,107,8,0.2);
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+        textarea:focus{
+            outline:none;
+            border-color:#ff9c6e;
+            box-shadow:
+                    0 0 10px rgba(255,156,110,0.3),
+                    0 0 20px rgba(255,156,110,0.2);
+            text-shadow:
+                    0 0 8px rgba(212,107,8,0.6),
+                    0 0 15px rgba(212,107,8,0.4),
+                    0 0 20px rgba(212,107,8,0.3);
+            transform:translateY(-2px);
+        }
+        textarea::placeholder{
+            color: #ffb380;
+            text-shadow: none;
+            font-weight: normal;
+        }
+        .two-row{
+            display:flex;
+            gap:15px;
+            margin:20px 0;
+        }
+
+        .person{
+            flex:1;
+            background:rgba(255,255,255,0.6);
+            padding:15px;
+            border-radius:12px;
+            text-align:center;
+        }
+        .avatar{
+            width:80px;
+            height:80px;
+            border-radius:50%;
+            object-fit:cover;
+            margin:0 auto 10px;
+            display:block;
+            border:3px solid #ff9c6e;
+            box-shadow:0 2px 8px rgba(255,156,110,0.3);
+        }
+        button{
+            padding:7px 15px;
+            background:#ff9c6e;
+            border:none;
+            border-radius:8px;
+            color:#fff;
+            font-size:15px;
+            cursor:pointer;
+            margin:5px;
+            transition:all 0.3s ease;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+            box-shadow:
+                    0 2px 5px rgba(255,156,110,0.3),
+                    0 0 10px rgba(255,156,110,0.2);
+        }
+        button:hover{
+            background:#d46b08;
+            text-shadow:
+                    0 0 5px rgba(255,255,255,0.8),
+                    0 0 10px rgba(255,255,255,0.5);
+            box-shadow:
+                    0 4px 10px rgba(255,156,110,0.5),
+                    0 0 20px rgba(255,156,110,0.3),
+                    0 0 30px rgba(255,156,110,0.2);
+            transform:translateY(-2px);
+        }
+        .record{
+            max-height:180px;
+            overflow:auto;
+            background:rgba(255,255,255,0.5);
+            padding:12px;
+            border-radius:10px;
+            line-height:1.8;
+            font-size:14px;
+        }
+        .music-btn{
+            text-align:center;
+            margin:15px 0;
+        }
+        .modal{
+            display:none;
+            position:fixed;
+            z-index:1000;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background-color:rgba(0,0,0,0.5);
+            animation:fadeIn 0.3s;
+        }
+        .modal-content{
+            background:linear-gradient(135deg,#fff5e6,#ffe8cc);
+            margin:5% auto;
+            padding:30px;
+            border-radius:15px;
+            width:90%;
+            max-width:450px;
+            box-shadow:0 4px 20px rgba(255,180,100,0.4);
+            animation:slideDown 0.3s;
+        }
+        .close{
+            color:#c44536;
+            float:right;
+            font-size:28px;
+            font-weight:bold;
+            cursor:pointer;
+            line-height:20px;
+        }
+        .close:hover{
+            color:#ff9c6e;
+        }
+        .modal-title{
+            color:#c44536;
+            font-size:22px;
+            font-weight:bold;
+            text-align:center;
+            margin-bottom:20px;
+        }
+        .stat-item{
+            background:rgba(255,255,255,0.7);
+            padding:12px;
+            margin:10px 0;
+            border-radius:8px;
+            font-size:16px;
+        }
+        .stat-label{
+            color:#d46b08;
+            font-weight:bold;
+        }
+        .all-record{
+            max-height:250px;
+            overflow-y:auto;
+            background:rgba(255,255,255,0.5);
+            padding:10px;
+            border-radius:8px;
+            margin-top:10px;
+        }
+        .record-item{
+            padding:5px;
+            margin:3px 0;
+            border-radius:5px;
+            background:rgba(255,255,255,0.6);
+        }
+        @keyframes fadeIn{
+            from{opacity:0;}
+            to{opacity:1;}
+        }
+        @keyframes slideDown{
+            from{transform:translateY(-50px);opacity:0;}
+            to{transform:translateY(0);opacity:1;}
+        }
+        .falling-item{
+            position:fixed;
+            top:-50px;
+            pointer-events:none;
+            z-index:9999;
+            animation:fall linear forwards;
+            font-size:24px;
+        }
+        @keyframes fall{
+            to{
+                transform:translateY(100vh) rotate(360deg);
+                opacity:0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- 27考研倒计时 -->
+<div class="box">
+    <h2>🎓 27考研倒计时</h2>
+    <div class="count-time" id="kaoyanTime"></div>
+</div>
+
+<!-- 每日励志一句话 -->
+<div class="box">
+    <h3>✨ 每日励志寄语</h3>
+    <textarea id="motto" placeholder="在这里写下今天励志的一句话..."></textarea>
+</div>
+
+<!-- 双人打卡 + 鼓励值 -->
+<div class="box">
+    <h3> 每日打卡</h3>
+    <div class="two-row">
+        <div class="person">
+            <img src="pic/3.jpg" alt="Victory" class="avatar">
+            <div><strong>Victory</strong></div>
+            <div id="selfLastDate">暂未打卡</div>
+            <button onclick="signIn('me')">今日打卡</button>
+            <button onclick="viewRecord('me')">查看记录</button>
+            <div style="margin-top:8px;">鼓励值：<span id="meScore">0</span></div>
+            <button onclick="addScore('me')">+1 加鼓励值</button>
+        </div>
+        <div class="person">
+            <img src="pic/4.jpg" alt="Juan" class="avatar">
+            <div><strong>Juan</strong></div>
+            <div id="partnerLastDate">暂未打卡</div>
+            <button onclick="signIn('partner')">今日打卡</button>
+            <button onclick="viewRecord('partner')">查看记录</button>
+            <div style="margin-top:8px;">鼓励值：<span id="partnerScore">0</span></div>
+            <button onclick="addScore('partner')">+1 加鼓励值</button>
+        </div>
+    </div>
+</div>
+
+<!-- 全部存档记录 -->
+<div class="box">
+    <h3>📂 全部打卡 & 记录存档</h3>
+    <div class="record" id="allRecord"></div>
+</div>
+
+<!-- 打卡记录弹窗 -->
+<div id="recordModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-title" id="modalTitle">📊 打卡统计</div>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+
+    // ===== 掉落特效 =====
+    function createFallingEffect(){
+        const emojis = ['🎉', '✨', '💪', '🌟', '⭐', '🎊', '💖', '🔥', '📚', '✏️', '🎯', '🏆'];
+        const colors = ['#ff6b6b', '#ffd93d', '#6bcf7f', '#4d96ff', '#ff9c6e', '#c44536'];
+
+        for(let i = 0; i < 30; i++){
+            setTimeout(() => {
+                const item = document.createElement('div');
+                item.className = 'falling-item';
+                item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.color = colors[Math.floor(Math.random() * colors.length)];
+                item.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                item.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                item.style.opacity = Math.random() * 0.5 + 0.5;
+
+                document.body.appendChild(item);
+
+                setTimeout(() => {
+                    item.remove();
+                }, 5000);
+            }, i * 100);
+        }
+    }
+    // ===== 加油文字掉落特效 =====
+    function createCheerEffect(){
+        const cheers = ['加油↖(^ω^)↗', '坚持', '努力', '奋斗', '冲刺', '必胜', '上岸', '成功'];
+        const colors = ['#ff6b6b', '#ffd93d', '#6bcf7f', '#4d96ff', '#ff9c6e', '#c44536', '#ff7f50'];
+
+        for(let i = 0; i < 20; i++){
+            setTimeout(() => {
+                const item = document.createElement('div');
+                item.className = 'falling-item';
+                item.innerText = cheers[Math.floor(Math.random() * cheers.length)];
+                item.style.left = Math.random() * 100 + 'vw';
+                item.style.color = colors[Math.floor(Math.random() * colors.length)];
+                item.style.fontSize = (Math.random() * 15 + 18) + 'px';
+                item.style.fontWeight = 'bold';
+                item.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                item.style.opacity = Math.random() * 0.4 + 0.6;
+                item.style.textShadow = '0 0 10px rgba(255,255,255,0.8)';
+
+                document.body.appendChild(item);
+
+                setTimeout(() => {
+                    item.remove();
+                }, 6000);
+            }, i * 150);
+        }
+    }
+
+    let data = JSON.parse(localStorage.getItem("studySiteData")) || {
+        motto: "",
+        meSign: [],
+        partnerSign: [],
+        meScore: 0,
+        partnerScore: 0
+    };
+
+
+
+    // ===== 日期工具 =====
+    function getToday(){
+        let d = new Date();
+        return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    // ===== 27考研倒计时 =====
+    function countDown(){
+        let end = new Date("2026-12-21 08:30:00").getTime();
+        let now = Date.now();
+        let diff = end - now;
+
+        let day = Math.floor(diff / (1000*60*60*24));
+        let h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        let m = Math.floor((diff % (1000*60*60)) / (1000*60));
+        let s = Math.floor((diff % (1000*60)) / 1000);
+
+        document.getElementById("kaoyanTime").innerText = `${day}天 ${h}时 ${m}分 ${s}秒`;
+    }
+    setInterval(countDown,1000);
+    countDown();
+
+    // ===== 保存数据到本地 =====
+    function save(){
+        localStorage.setItem("studySiteData",JSON.stringify(data));
+    }
+
+    // ===== 打卡功能 =====
+    function signIn(type){
+        let today = getToday();
+        let arr = type==='me' ? data.meSign : data.partnerSign;
+        if(arr.includes(today)){
+            alert("今天已经打过卡啦，坚持住！");
+            return;
+        }
+        arr.push(today);
+
+        // 判断谁先打卡
+        let otherArr = type==='me' ? data.partnerSign : data.meSign;
+        let otherName = type==='me' ? 'Juan' : 'Victory';
+        let myName = type==='me' ? 'Victory' : 'Juan';
+
+        let message = "";
+        if(otherArr.includes(today)){
+            // 对方今天已经打卡了，我后打卡
+            message = `${myName}，你落后${otherName}，要加油哦！`;
+        } else {
+            // 我今天先打卡
+            message = `${myName}，你已超越${otherName}，继续保持！`;
+        }
+
+        save();
+        renderUI();
+        createFallingEffect();
+        setTimeout(() => {
+            alert(message);
+        }, 300);
+    }
+
+    // ===== 查看打卡记录 =====
+    function viewRecord(type){
+        let arr = type==='me' ? data.meSign : data.partnerSign;
+        let name = type==='me' ? 'Victory' : 'Juan';
+
+        if(arr.length === 0){
+            alert(`${name} 还没有打卡记录哦，快去打卡吧！`);
+            return;
+        }
+
+        // 计算连续打卡天数
+        let streak = calculateStreak(arr);
+
+        // 计算总打卡天数
+        let totalDays = arr.length;
+
+        // 获取全部打卡记录
+        let allRecords = getAllRecords(arr);
+
+        // 计算出勤率
+        let attendanceRate = calculateAttendanceRate(arr);
+
+        // 构建弹窗内容
+        let html = '<div class="stat-item"><span class="stat-label">👤 姓名：</span>' + name + '</div>';
+        html += '<div class="stat-item"><span class="stat-label">📅 总打卡天数：</span>' + totalDays + ' 天</div>';
+        html += '<div class="stat-item"><span class="stat-label">🔥 连续打卡：</span>' + streak + ' 天</div>';
+        html += '<div class="stat-item"><span class="stat-label">📈 出勤率：</span>' + attendanceRate + '%</div>';
+        html += '<div class="stat-item"><span class="stat-label">⏰ 最近打卡：</span>' + arr[arr.length - 1] + '</div>';
+        html += '<div class="stat-item"><span class="stat-label">📆 全部打卡记录：</span><div class="all-record">' + allRecords + '</div></div>';
+
+        document.getElementById('modalTitle').innerText = '📊 ' + name + ' 的打卡统计';
+        document.getElementById('modalBody').innerHTML = html;
+        document.getElementById('recordModal').style.display = 'block';
+    }
+
+    // ... existing code ...
+
+    // ===== 关闭弹窗 =====
+    function closeModal(){
+        document.getElementById('recordModal').style.display = 'none';
+    }
+
+    // 点击弹窗外部关闭
+    window.onclick = function(event){
+        let modal = document.getElementById('recordModal');
+        if(event.target == modal){
+            modal.style.display = 'none';
+        }
+    }
+
+    // ===== 计算连续打卡天数 =====
+    function calculateStreak(arr){
+        if(arr.length === 0) return 0;
+
+        // 排序日期
+        let sorted = [...arr].sort();
+        let streak = 1;
+        let today = getToday();
+
+        // 如果最近一次打卡不是今天或昨天，连续天数为0
+        let lastDate = sorted[sorted.length - 1];
+        let lastTime = new Date(lastDate).getTime();
+        let nowTime = new Date(today).getTime();
+        let diff = (nowTime - lastTime) / (1000 * 60 * 60 * 24);
+
+        if(diff > 1) return 0;
+
+        // 从最后一天往前计算连续天数
+        for(let i = sorted.length - 1; i > 0; i--){
+            let curr = new Date(sorted[i]).getTime();
+            let prev = new Date(sorted[i-1]).getTime();
+            let dayDiff = (curr - prev) / (1000 * 60 * 60 * 24);
+
+            if(dayDiff === 1){
+                streak++;
+            } else {
+                break;
+            }
+        }
+
+        return streak;
+    }
+
+    // ===== 获取全部打卡记录 =====
+    function getAllRecords(arr){
+        let result = "";
+        // 按日期排序（从新到旧）
+        let sorted = [...arr].sort().reverse();
+
+        sorted.forEach((date, index) => {
+            let d = new Date(date);
+            let dayNames = ['日', '一', '二', '三', '四', '五', '六'];
+            let dayName = dayNames[d.getDay()];
+            result += `<div class="record-item">✅ ${date} (周${dayName})</div>`;
+        });
+
+        return result;
+    }
+
+    // ===== 计算出勤率 =====
+    function calculateAttendanceRate(arr){
+        if(arr.length === 0) return 0;
+
+        // 找到第一次打卡的日期
+        let sorted = [...arr].sort();
+        let firstDate = new Date(sorted[0]);
+        let today = new Date(getToday());
+
+        // 计算总天数
+        let totalDays = Math.floor((today - firstDate) / (1000 * 60 * 60 * 24)) + 1;
+
+        if(totalDays <= 0) return 100;
+
+        // 计算出勤率
+        let rate = (arr.length / totalDays * 100).toFixed(1);
+        return rate;
+    }
+
+    // ===== 加鼓励值 =====
+    function addScore(type){
+        if(type==='me') data.meScore++;
+        else data.partnerScore++;
+        save();
+        renderUI();
+
+        // 每加5次鼓励值触发一次特效
+        let score = type==='me' ? data.meScore : data.partnerScore;
+        if(score % 5 === 0){
+            createFallingEffect();
+        }
+    }
+    // ===== 励志语录自动保存 =====
+    document.getElementById("motto").value = data.motto;
+    document.getElementById("motto").addEventListener("input",function(){
+        data.motto = this.value;
+        save();
+    });
+
+    // ===== 渲染页面所有内容 =====
+    function renderUI(){
+        // 鼓励值
+        document.getElementById("meScore").innerText = data.meScore;
+        document.getElementById("partnerScore").innerText = data.partnerScore;
+
+        // 最近打卡日期
+        document.getElementById("selfLastDate").innerText = data.meSign.length ? "最近："+data.meSign.at(-1) : "暂未打卡";
+        document.getElementById("partnerLastDate").innerText = data.partnerSign.length ? "最近："+data.partnerSign.at(-1) : "暂未打卡";
+
+        // 存档记录
+        let html = "";
+        html += "👤 Victory打卡记录：<br>"+data.meSign.join(" ｜ ")+"<br><br>";
+        html += "👥 Juan打卡记录：<br>"+data.partnerSign.join(" ｜ ")+"<br><br>";
+        html += "💖 Victory总鼓励值："+data.meScore+"<br>";
+        html += "💖 Juan总鼓励值："+data.partnerScore+"<br><br>";
+        html += "📜 每日励志寄语：<br>"+(data.motto||"暂未填写");
+
+        document.getElementById("allRecord").innerHTML = html;
+    }
+
+    // 页面加载初始化
+    renderUI();
+    // 页面加载0.5秒后触发加油特效
+    setTimeout(() => {
+        createCheerEffect();
+    }, 500);
+</script>
+
+</body>
+</html>
